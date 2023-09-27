@@ -1,6 +1,7 @@
 # MediaControlls
 
 This mod let's you controll your music from spotify etc.
+This mod was made for Melon Loader
 
 ### This mod let's you:
 - Pause/Play music
@@ -12,4 +13,4 @@ This mod let's you controll your music from spotify etc.
 - volume slider
 
 ### Credits:
--Coding: Exil_S
+- Coding: Exil_S
