@@ -9,8 +9,7 @@ This mod was made for Melon Loader
 - play the last song
 
 ### What's about to come:
-- new/better ui
-- volume slider
+- new/better ui (half done)
 
 ### Credits:
 - Coding: Exil_S
