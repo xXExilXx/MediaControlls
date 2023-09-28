@@ -1,9 +1,16 @@
-### GENERAL INFORMATION:
+# MediaControlls
 
-- An Example Mod for [MelonLoader](https://github.com/LavaGang/MelonLoader).
+This mod let's you controll your music from spotify etc.
+This mod was made for Melon Loader
 
----
+### This mod let's you:
+- Pause/Play music
+- play the next song
+- play the last song
 
-### LICENSING & CREDITS:
+### What's about to come:
+- new/better ui
+- volume slider
 
-TestMod is licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/LavaGang/TestMod/blob/master/LICENSE.md) for the full License.
+### Credits:
+- Coding: Exil_S
