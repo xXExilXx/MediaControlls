@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using MelonLoader;
 using UnityEngine;
+using TextureLoader;
 
 
 namespace MediaControlls
@@ -12,7 +13,7 @@ namespace MediaControlls
         public const string Description = "Let's you controll your pc music from UI"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Exil_S"; // Author of the Mod.  (MUST BE SET)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.0.0"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.0.1"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
     }
 
@@ -23,9 +24,18 @@ namespace MediaControlls
         private const int VK_MEDIA_NEXT_TRACK = 0xB0;
         private const int VK_MEDIA_PLAY_PAUSE = 0xB3;
         private const int VK_MEDIA_PREV_TRACK = 0xB1;
+        private const int VK_VOLUME_UP = 0xAF;
+        private const int VK_VOLUME_DOWN = 0xAE;
+        private Texture playPause;
+        private Texture rewind;
+        private Texture skip;
 
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte virtualKey, byte scanCode, uint flags, IntPtr extraInfo);
+
+        [DllImport("user32.dll")]
+        public static extern float GetMasterVolumeLevelScalar();
+
         private bool isMenuVisible = false;
 
         public override void OnUpdate()
@@ -34,24 +44,48 @@ namespace MediaControlls
             {
                 isMenuVisible = !isMenuVisible;
             }
+
+            if (isMenuVisible)
+            {
+                // Adjust volume using the scroll wheel
+                float scroll = Input.GetAxis("Mouse ScrollWheel");
+                if(scroll > 0)
+                {
+                    SimulateMediaKey(VK_VOLUME_UP);
+                }
+                else if(scroll < 0)
+                {
+                    SimulateMediaKey(VK_VOLUME_DOWN);
+                }
+            }
+        }
+        public override void OnInitializeMelon()
+        {
+            playPause = ResourceManager.GetTexture("PlayPause");
+            rewind = ResourceManager.GetTexture("rewind");
+            skip = ResourceManager.GetTexture("skip");
         }
 
         public override void OnGUI()
         {
             if (isMenuVisible)
             {
+                GUI.Box(new Rect(10, 10, 220, 190), "Media Controls");
 
-                if (GUI.Button(new Rect(10, 10, 100, 50), "Play/Pause"))
+                // Create styled buttons
+                GUI.backgroundColor = Color.cyan;
+
+                if (GUI.Button(new Rect(20, 40, 200, 40), "Play/Pause"))
                 {
                     TogglePlayback();
                 }
 
-                if (GUI.Button(new Rect(10, 70, 100, 50), "Skip Forward"))
+                if (GUI.Button(new Rect(20, 90, 200, 40), "Skip"))
                 {
                     SkipForward();
                 }
 
-                if (GUI.Button(new Rect(10, 130, 100, 50), "Skip Back"))
+                if (GUI.Button(new Rect(20, 140, 200, 40), "Rewind"))
                 {
                     SkipBack();
                 }
